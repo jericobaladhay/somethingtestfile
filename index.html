@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Destination Recommender</title>
+</head>
+<body>
+    <h1>TravelGo</h1>
+
+    <h2>Select Your Preferences:</h2>
+    
+    <label for="beach">
+        <input type="checkbox" name="preference" id="beach" value="Beach">
+        Beach
+    </label>
+
+    <label for="mountains">
+        <input type="checkbox" name="preference" id="mountains" value="Mountains">
+        Mountains
+    </label>
+
+    <label for="city">
+        <input type="checkbox" name="preference" id="city" value="City">
+        City
+    </label>
+
+    <h2>Select Your Budget:</h2>
+    
+    <select id="budget">
+        <option value="0">Select Budget</option>
+        <option value="1">P 50.00 - P 100.00 </option>
+        <option value="2">P 2000.00 - P 5000.00</option>
+        <option value="3">P 7000.00 - P 10000.00</option>
+        <option value="4">P 150000.00 - P 30000.00</option>
+    </select>
+
+    <hr>
+
+    <button id="recommendDestination">Recommend Destination</button>
+
+    <hr>
+
+    <div id="recommendedDes"></div>
+
+    <script>
+        const recommendButton = document.getElementById("recommendDestination");
+
+        recommendButton.addEventListener('click', function() {
+
+            const preferenceCheckboxes = document.querySelectorAll('input[name="preference"]:checked');
+            const budgetSelect = document.getElementById("budget");
+            const recommendedDestinationDiv = document.getElementById("recommendedDes");
+
+            const selectedPreferences = [];
+            
+
+            preferenceCheckboxes.forEach((checkbox) => {
+                selectedPreferences.push(checkbox.value);
+            });
+            
+
+            if(selectedPreferences.length === 0){
+                
+                alert('Please choose your preference/s')
+            
+            } else {
+
+                let desc = ''
+
+                if(budgetSelect.value == "0"){
+                    alert('Please select your budget')
+                } else {
+                    if(budgetSelect.value == "1"){
+                        desc = 'You have a low budget'
+                    } else if (budgetSelect.value == "2"){
+                        desc = 'Good! You have budget but needed more'
+                    } else if (budgetSelect.value == "3"){
+                        desc = 'Great! You have budget'
+                    } else if (budgetSelect.value == "4"){
+                        desc = 'Excellent! You will be enjoying your travel'
+                    } else {
+                        alert('Select your budget')
+                    }
+
+                    recommendedDestinationDiv.innerHTML = 
+                    `
+                        Based on your preferences, we recommend: 
+                        ${selectedPreferences}
+                        . ${desc}.
+                    `
+                }
+
+            }
+
+           
+
+
+        });
+    </script>
+</body>
+</html>
